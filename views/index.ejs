@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Webshot - from Open Knowledge Foundation Labs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A free web service for taking screenshots of websites">
+    <meta name="author" content="Open Knowledge Foundation Labs">
+     
+    <script type="text/javascript">
+    //<![CDATA[
+    try{if (!window.CloudFlare) { var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:{profile:false},oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/abv=2980380653/"},atok:"cc3250cf36e2b0ccfdbd78953f9e5b16",petok:"3781f709a60f518ce31a37a2055c0da1-1383844201-1800",zone:"okfn.org",rocket:"0",apps:{}}];var a=document.createElement("script"),b=document.getElementsByTagName("script")[0];a.async=!0;a.src="//ajax.cloudflare.com/cdn-cgi/nexp/abv=616370820/cloudflare.min.js";b.parentNode.insertBefore(a,b);}}catch(e){};
+    //]]>
+    </script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">  
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="http://dataprotocols.org/css/style.css" rel="stylesheet">  
+
+    <link rel="stylesheet" href="http://assets.okfn.org/themes/okfn/okf-panel.css"/>  
+    <link rel="stylesheet" href="http://assets.okfn.org/themes/okfn/okf-footer/okf-footer.css"/>  
+     
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+     
+    <link rel="shortcut icon" href="http://assets.okfn.org/p/okfn/img/favicon.ico">
+</head>
+<body>
+    <div id="okf-panel" class="collapse">
+        <iframe src="http://assets.okfn.org/themes/okfn/okf-panel.html"></iframe>
+    </div>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="okfn-ribbon">
+              <a data-toggle="collapse" data-target="#okf-panel">An Open Knowledge Foundation Site</a>
+          </div>
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </a>
+          <div class="brand">
+            <a href="/">Webshot</a> from
+            <a href="http://okfnlabs.org/">Open Knowledge Foundation Labs</a>
+          </div>
+          <ul class="nav pull-right">
+            <li class="divider-vertical"></li>
+            <li>
+              <a href="https://github.com/okfn/webshot"><i class="fa fa-github"></i> Code</a>
+            </li>
+            <li class="divider-vertical"></li>
+            <li>
+              <a href="https://github.com/okfn/webshot/issues" title="Report issues, suggestions and improvements"><i class="fa fa-exclamation-circle"></i> Issues</a>
+            </li>
+            <li class="divider-vertical"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="hero-unit">
+        <h1>
+          Webshot
+          <small>from <a href="http://okfnlabs.org/">Open Knowledge Foundation Labs</a></small>
+          <br />
+          <small>Free, automated generation of live screenshots of public websites</small>
+        </h1>
+      </div>
+      <div>
+        <div class="row">
+          <div class="span6">
+            <h2>Try it out</h2>
+            <form action="/api/generate" class="form js-generate" style="margin-top: 30px;">
+              <div class="control-group">
+                <label for="url" class="control-label">URL</label>
+                <div class="controls">
+                  <input type="text" name="url" id="url"
+                    class="input-xlarge"
+                    placeholder="http://okfn.org/"
+                    type="url"
+                    required=""
+                    />
+                </div>
+              </div>
+                <fieldset>
+                    <legend>Optional parameters</legend>
+                    <label for="width">Width</label>
+                    <input type="number" name="width" id="width" class="input-small" value="1024" min="100" max="2560" />
+
+                    <label for="height">Height</label>
+                    <input type="number" name="height" id="height" class="input-small" value="768" min="100" max="" />
+
+                    <label for="delay">Delay (in ms)</label>
+                    <input type="number" name="delay" id="delay" class="input-small" value="0" min="0" max="10000" step="100" />
+
+                    <label for="userAgent">User agent</label>
+                    <input type="text" name="userAgent" id="userAgent" class="input-xlarge" value=""  />
+
+                    <label for="full">
+                      <input type="checkbox" name="full" id="full" />
+                      Grab whole page (not just visible page)
+                    </label>
+                </fieldset>
+                <div class="control-group" style="margin-top: 30px;">
+                  <div class="controls">
+                    <button type="submit" class="btn btn-primary btn-large js-generate-btn">Generate screenshot</button>
+                  </div>
+                </div>
+            </form>
+          </div>
+          <div class="span6">
+            <h2>API</h2>
+            <dl>
+              <dt>HTTP Method</dt>
+              <dd><code>GET</code></dd>
+              <dt>URL</dt>
+              <dd><code>/api/generate</code></dd>
+              <dt>Parameters</dt>
+              <dd>
+                <dl>
+                  <dt><code>url</code></dt>
+                  <dd>Required, must include the protocol</dd>
+                  <dt><code>width</code></dt>
+                  <dd>Not required, defaults to 1024</dd>
+                  <dt><code>height</code></dt>
+                  <dd>Not required, defaults to 768</dd>
+                  <dt><code>delay</code></dt>
+                  <dd>Not required, specified in ms, defaults to 0ms</dd>
+                  <dt><code>userAgent</code></dt>
+                  <dd>Not required, specifies the user agent</dd>
+                  <dt><code>full</code></dt>
+                  <dd>Not required, specifies whether the full page should be captured, only true/false is allowed, defaults to false</dd>
+                </dl>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+     
+    <div id="results" style="display:none;">
+      <h2>Screenshot</h2>
+      <p>Image Link: <a href="" id="url"></a></p>
+      <img id="webshot" />
+    </div>
+</div>  
+
+<footer>
+    <div class="container">
+        <p>All the code is available on <a href="https://github.com/okfn/webshot" target="_blank">GitHub</a> and is licensed under the BSD license.</p>
+        <div class="row">
+            <div class="span6">
+                <a href="http://okfn.org/"><img style="display:none;visibility:hidden;" data-cfsrc="http://assets.okfn.org/p/okfn/img/okfn-logo-landscape.png" width="150px;"><noscript><img src="http://assets.okfn.org/p/okfn/img/okfn-logo-landscape.png" width="150px;"></noscript></a>
+            </div>
+            <div class="span6"></div>
+        </div>
+    </div>
+     
+    <div class="okf-footer" id="okf-footer"></div>
+</footer>
+ 
+ 
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>  
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js"></script>  
+<script src="http://assets.okfn.org/themes/okfn/okf-footer/okf-footer.js"></script>  
+<script src="/static/javascript/demo.js"></script>
+</body>
+</html>
