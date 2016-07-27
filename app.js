@@ -39,35 +39,3 @@ app.get('/api/generate', apiRoutes.generate);
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
 });
-
-
-app.get('/get/data', function(req, res){
-	if (req.query.url) {
-		var d = loadData(url, function(data) {
-			  if (data) {
-				console.log(data);
-			  }
-			  else console.log("error");  
-			});
-	  console.log('d:::'+d);
-	}else {
-		return routes.index(req, res);
-    }
-});
-
-
-
-function loadData(url, callback) {
-  //http.get(url, function(res) {
-    var data = "";
-    res.on('data', function (chunk) {
-      data += chunk;
-    });
-    res.on("end", function() {
-      callback(data);
-    });
-	return data;
- /*( }).on("error", function() {
-    callback(null);
-  });*/
-}
